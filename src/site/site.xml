@@ -1,0 +1,36 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <publishDate position="right" format="yyyy-MM-dd"/>
+    <version position="right"/>
+
+    <body>
+        <breadcrumbs>
+            <item name="Find and Replace Maven Plugin" href="https://github.com/floverfelt/find-and-replace-maven-plugin" />
+        </breadcrumbs>
+
+        <menu ref="modules" />
+        <menu name="Overview">
+            <item name="Goals" href="plugin-info.html" />
+        </menu>
+        <menu ref="reports" />
+    </body>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+
+    <custom>
+        <fluidoSkin>
+            <leftColumnClass>span3</leftColumnClass>
+            <bodyColumnClass>span9</bodyColumnClass>
+            <gitHub>
+                <projectId>floverfelt/find-and-replace-maven-plugin</projectId>
+                <ribbonOrientation>right</ribbonOrientation>
+                <ribbonColor>red</ribbonColor>
+            </gitHub>
+        </fluidoSkin>
+    </custom>
+</project>

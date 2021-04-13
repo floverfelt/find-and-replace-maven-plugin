@@ -1,0 +1,36 @@
+ ------
+ Introduction
+ ------
+ Florian Overfelt
+ ------
+ 2021-04-13
+ ------
+
+
+Find and Replace Maven Plugin
+
+  This plugin uses vanilla Java code to find and replace values within files, in filenames, and in directory names.
+
+* Goals Overview
+
+  This plugin only supports a single goal bound to no lifecycle phase. That goal is:
+
+  * {{{./find-and-replace-mojo.html}find-and-replace:find-and-replace}} find's and replaces values in files, filenames, and directory names.
+
+* Usage
+
+  General instructions on how to use the Plugin Name can be found on the {{{usage.html}usage page}}. Some more
+  specific use cases are described in the examples given below.
+
+  If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in the
+  {{{issue-management.html}issue management system}}. When creating a new issue, please provide a comprehensive description of your
+  concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
+  entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
+  Of course, patches are welcome, too. Contributors can check out the project from our
+  {{{scm.html}source repository}}.
+
+* Examples
+
+  Basic syntax and configurations can be found at:
+
+  * {{{./examples/basic.html}Basic Configurations}}

@@ -30,9 +30,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/floverfelt/find-and-replace-maven-plugin.git</connection>
-    <developerConnection>scm:git:ssh://github.com/floverfelt/find-and-replace-maven-plugin.git</developerConnection>
-    <url>https://github.com/floverfelt/find-and-replace-maven-plugin/tree/main</url>
+    <connection>scm:git://github.com/floverfelt/find-and-replace-maven-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:floverfelt/find-and-replace-maven-plugin.git</developerConnection>
+    <url>https://github.com/floverfelt/find-and-replace-maven-plugin</url>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
@@ -53,6 +54,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <properties>
     <maven.javadoc.version>3.2.0</maven.javadoc.version>
+    <site.maven.plugin.version>0.12</site.maven.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -158,8 +160,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.1</version>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.6.0</version>
       </plugin>
     </plugins>
   </reporting>

@@ -47,10 +47,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
   private boolean recursive;
 
   /**
-   * A CSV of what type of replacement(s) being done. Valid values are:
-   *  file-contents
-   *  filenames
-   *  directory-names
+   * A CSV of what type of replacement(s) being done. Valid values are: file-contents filenames directory-names
    *
    *  file-contents will replace the find regex within a file.
    *  filenames will replace the find regex within a file's name.

@@ -1,0 +1,112 @@
+ ------
+ Basic Configuration
+ ------
+ Florian Overfelt
+ ------
+ 2021-04-13
+ ------
+
+Sample configurations
+
+    The following is a configuration to recursively process only directory names in the target directory
+
++---+
+<plugin>
+   <groupId>io.github.floverfelt</groupId>
+   <artifactId>find-and-replace-maven-plugin</artifactId>
+   <executions>
+      <execution>
+         <id>exec</id>
+         <phase>package</phase>
+         <goals>
+            <goal>find-and-replace</goal>
+         </goals>
+         <configuration>
+            <replacementType>directory-names</replacementType>
+            <baseDir>target/</baseDir>
+            <findRegex>_</findRegex>
+            <replaceValue>-</replaceValue>
+            <recursive>true</recursive>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
++---+
+
+    The following is a configuration to recursively process only filenames ending in .xml in the target directory.
+
++---+
+<plugin>
+   <groupId>io.github.floverfelt</groupId>
+   <artifactId>find-and-replace-maven-plugin</artifactId>
+   <executions>
+      <execution>
+         <id>exec</id>
+         <phase>package</phase>
+         <goals>
+            <goal>find-and-replace</goal>
+         </goals>
+         <configuration>
+            <replacementType>filenames</replacementType>
+            <baseDir>target/</baseDir>
+            <findRegex>_</findRegex>
+            <replaceValue>-</replaceValue>
+            <recursive>true</recursive>
+            <fileMask>.xml</fileMask>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
++---+
+
+    The following is a configuration to recursively process only file contents for files ending in .yml in the target directory.
+
++---+
+<plugin>
+   <groupId>io.github.floverfelt</groupId>
+   <artifactId>find-and-replace-maven-plugin</artifactId>
+   <executions>
+      <execution>
+         <id>exec</id>
+         <phase>package</phase>
+         <goals>
+            <goal>find-and-replace</goal>
+         </goals>
+         <configuration>
+            <replacementType>file-contents</replacementType>
+            <baseDir>target/</baseDir>
+            <findRegex>_</findRegex>
+            <replaceValue>-</replaceValue>
+            <recursive>true</recursive>
+            <fileMask>.yml</fileMask>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
++---+
+
+    The following is a configuration to recursively process file contents, directory names, and file names in the target directory. It excludes any files ending with "sources".
+
++---+
+<plugin>
+   <groupId>io.github.floverfelt</groupId>
+   <artifactId>find-and-replace-maven-plugin</artifactId>
+   <executions>
+      <execution>
+         <id>exec</id>
+         <phase>package</phase>
+         <goals>
+            <goal>find-and-replace</goal>
+         </goals>
+         <configuration>
+            <replacementType>filenames,directory-names,file-contents</replacementType>
+            <baseDir>target/</baseDir>
+            <findRegex>_</findRegex>
+            <replaceValue>-</replaceValue>
+            <recursive>true</recursive>
+            <exclusions>sources$</exclusions>
+         </configuration>
+      </execution>
+   </executions>
+</plugin>
++---+
