@@ -1,0 +1,5 @@
+some:
+  value:
+    in:
+      yml: -test-
+    other: asdf
