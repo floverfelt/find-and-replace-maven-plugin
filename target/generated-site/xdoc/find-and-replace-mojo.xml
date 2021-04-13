@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>find-and-replace:find-and-replace</title>
+  </properties>
+  <body>
+    <section name="find-and-replace:find-and-replace">
+      <p><strong>Full name</strong>:</p>
+      <p>io.github.floverfelt:find-and-replace-maven-plugin:1.0-SNAPSHOT:find-and-replace</p>
+      <p><strong>Description</strong>:</p>
+      <div>The find and replace maven plugin will find a regex string in
+filenames, file contents, and directory names and replace it with a
+given value.</div>
+      <p><strong>Attributes</strong>:</p>
+      <ul>
+        <li>Requires a Maven project to be executed.</li>
+      </ul>
+      <subsection name="Required Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#findRegex">&lt;findRegex&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>The regex string to find.<br/><strong>User property is</strong>: <code>findRegex</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#replaceValue">&lt;replaceValue&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>The value to replace the matching findRegex with.<br/><strong>User property is</strong>: <code>replaceValue</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#replacementType">&lt;replacementType&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>A CSV of what type of replacement(s) being done. Valid values are:
+file-contents filenames directory-names file-contents will replace
+the find regex within a file. filenames will replace the find regex
+within a file's name. directory-names will replace the find regex
+within a directory's name To run the find and replace for multiple
+types, pass them as a CSV: file-contents,filenames,directory-names<br/><strong>User property is</strong>: <code>replacementType</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Optional Parameters">
+        <table border="0">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Since</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code><a href="#baseDir">&lt;baseDir&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>The base directory from which to perform the find and replace. This
+is relative to the location of the pom.<br/><strong>Default value is</strong>: <code>${basedir}</code>.<br/><strong>User property is</strong>: <code>baseDir</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#exclusions">&lt;exclusions&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>Regex filenames/directory-names to exclude.<br/><strong>User property is</strong>: <code>exclusions</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#fileMask">&lt;fileMask&gt;</a></code></td>
+            <td><code>String</code></td>
+            <td><code>-</code></td>
+            <td>A CSV of the file types to search in. For example for the value:
+.xml Only files ending with .xml will be renamed. For the value:
+.xml,.properties Only files ending with .xml,.properties will be
+renamed. Ignored for directories.<br/><strong>User property is</strong>: <code>fileMask</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#recursive">&lt;recursive&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>-</code></td>
+            <td>Whether the find and replace is recursive from the baseDir.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>recursive</code>.<br/></td>
+          </tr>
+          <tr>
+            <td><code><a href="#skip">&lt;skip&gt;</a></code></td>
+            <td><code>boolean</code></td>
+            <td><code>-</code></td>
+            <td>Skip execution of the plugin.<br/><strong>Default value is</strong>: <code>false</code>.<br/><strong>User property is</strong>: <code>skip</code>.<br/></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Parameter Details">
+        <h4><strong><a name="baseDir">&lt;baseDir&gt;</a></strong></h4>
+        <div>The base directory from which to perform the find and replace. This
+is relative to the location of the pom.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>baseDir</code></li>
+          <li><strong>Default</strong>: <code>${basedir}</code></li>
+        </ul><hr/><h4><strong><a name="exclusions">&lt;exclusions&gt;</a></strong></h4>
+        <div>Regex filenames/directory-names to exclude.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>exclusions</code></li>
+        </ul><hr/><h4><strong><a name="fileMask">&lt;fileMask&gt;</a></strong></h4>
+        <div>A CSV of the file types to search in. For example for the value:
+.xml Only files ending with .xml will be renamed. For the value:
+.xml,.properties Only files ending with .xml,.properties will be
+renamed. Ignored for directories.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>fileMask</code></li>
+        </ul><hr/><h4><strong><a name="findRegex">&lt;findRegex&gt;</a></strong></h4>
+        <div>The regex string to find.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>Yes</code></li>
+          <li><strong>User Property</strong>: <code>findRegex</code></li>
+        </ul><hr/><h4><strong><a name="recursive">&lt;recursive&gt;</a></strong></h4>
+        <div>Whether the find and replace is recursive from the baseDir.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>recursive</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul><hr/><h4><strong><a name="replaceValue">&lt;replaceValue&gt;</a></strong></h4>
+        <div>The value to replace the matching findRegex with.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>Yes</code></li>
+          <li><strong>User Property</strong>: <code>replaceValue</code></li>
+        </ul><hr/><h4><strong><a name="replacementType">&lt;replacementType&gt;</a></strong></h4>
+        <div>A CSV of what type of replacement(s) being done. Valid values are:
+file-contents filenames directory-names file-contents will replace
+the find regex within a file. filenames will replace the find regex
+within a file's name. directory-names will replace the find regex
+within a directory's name To run the find and replace for multiple
+types, pass them as a CSV: file-contents,filenames,directory-names</div>
+        <ul>
+          <li><strong>Type</strong>: <code>java.lang.String</code></li>
+          <li><strong>Required</strong>: <code>Yes</code></li>
+          <li><strong>User Property</strong>: <code>replacementType</code></li>
+        </ul><hr/><h4><strong><a name="skip">&lt;skip&gt;</a></strong></h4>
+        <div>Skip execution of the plugin.</div>
+        <ul>
+          <li><strong>Type</strong>: <code>boolean</code></li>
+          <li><strong>Required</strong>: <code>No</code></li>
+          <li><strong>User Property</strong>: <code>skip</code></li>
+          <li><strong>Default</strong>: <code>false</code></li>
+        </ul>
+      </subsection>
+    </section>
+  </body>
+</document>
