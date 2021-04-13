@@ -1,3 +1,0 @@
-## Welcome to the Find and Replace Maven Plugin
-
-Coming soon...
