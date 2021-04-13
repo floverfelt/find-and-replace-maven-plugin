@@ -37,7 +37,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <issueManagement>
     <system>GitHub</system>
-    <url>https://github.com/samaxes/minify-maven-plugin/issues</url>
+    <url>https://github.com/floverfelt/find-and-replace-maven-plugin/issues</url>
   </issueManagement>
 
   <distributionManagement>

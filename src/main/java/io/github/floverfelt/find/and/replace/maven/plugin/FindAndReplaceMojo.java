@@ -20,8 +20,6 @@ import org.apache.maven.project.MavenProject;
  * The find and replace maven plugin will find a regex string in filenames, file contents, and directory names
  * and replace it with a given value.
  *
- * @goal find-and-replace
- * @phase NONE
  */
 @Mojo(name = "find-and-replace", defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class FindAndReplaceMojo extends AbstractMojo {
