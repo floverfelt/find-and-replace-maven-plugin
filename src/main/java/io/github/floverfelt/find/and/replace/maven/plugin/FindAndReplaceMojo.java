@@ -16,6 +16,13 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+/**
+ * The find and replace maven plugin will find a regex string in filenames, file contents, and directory names
+ * and replace it with a given value.
+ *
+ * @goal find-and-replace
+ * @phase NONE
+ */
 @Mojo(name = "find-and-replace", defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class FindAndReplaceMojo extends AbstractMojo {
 
@@ -26,12 +33,16 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * The base directory from which to perform the find and replace.
    * This is relative to the location of the pom.
    *
+   * @parameter baseDir
+   *
    */
   @Parameter(property = "baseDir", defaultValue = "${basedir}")
   private String baseDir;
 
   /**
    * Whether the find and replace is recursive from the baseDir.
+   *
+   * @parameter recursive
    *
    */
   @Parameter(property = "recursive", defaultValue = "false")
@@ -49,6 +60,9 @@ public class FindAndReplaceMojo extends AbstractMojo {
    *
    * To run the find and replace for multiple types, pass them as a CSV:
    *    file-contents,filenames,directory-names
+   *
+   * @parameter replacementType
+   *
    */
   @Parameter(property = "replacementType", required = true)
   private String replacementType;
@@ -56,12 +70,16 @@ public class FindAndReplaceMojo extends AbstractMojo {
   /**
    * The regex string to find.
    *
+   * @parameter findRegex
+   *
    */
   @Parameter(property = "findRegex", required = true)
   private String findRegex;
 
   /**
    * The value to replace the matching findRegex with.
+   *
+   * @parameter replaceValue
    *
    */
   @Parameter(property = "replaceValue", required = true)
@@ -77,6 +95,8 @@ public class FindAndReplaceMojo extends AbstractMojo {
    *
    * Ignored for directories.
    *
+   * @parameter fileMask
+   *
    */
   @Parameter(property = "fileMask")
   private String fileMask;
@@ -84,12 +104,16 @@ public class FindAndReplaceMojo extends AbstractMojo {
   /**
    * Regex filenames/directory-names to exclude.
    *
+   * @parameter exclusions
+   *
    */
   @Parameter(property = "exclusions")
   private String exclusions;
 
   /**
    * Skip execution of the plugin.
+   *
+   * @parameter skip
    *
    */
   @Parameter(property = "skip", defaultValue = "false")
