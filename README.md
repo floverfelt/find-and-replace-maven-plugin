@@ -7,6 +7,12 @@ is very old and just a wrapper around the [ant task](https://ant.apache.org/manu
 
 The find-and-replace maven plugin is an attempt to remedy these issues. It's open source, uses vanilla Java 8, and allows for replacement within files, for file names, and for directory names.
 
+It's intended to be simple to read and contribute to.
+
+## Documentation
+
+Documentation can be found [here](https://floverfelt.org/find-and-replace-maven-plugin).
+
 ## Usage
 
 The find-and-replace-maven-plugin is lifecycle phase agnostic. Simply add it to your pom wherever you'd like it to execute.
