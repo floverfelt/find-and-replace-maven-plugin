@@ -29,6 +29,7 @@ The find-and-replace-maven-plugin is lifecycle phase agnostic. Simply add it to 
             <goal>find-and-replace</goal>
          </goals>
          <configuration>
+            <!-- Possible replacementType values: file-contents, filenames, directory-names. To run for multiple types, pass the values as a CSV list. -->
             <replacementType>directory-names</replacementType>
             <baseDir>testing/</baseDir>
             <findRegex>_</findRegex>
