@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7947cf22-4d6b-47e4-8e5e-f525140c7b6e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/apache-maven-fluido-1.7.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/apache-maven-fluido-1.7.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/print.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/print.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies.html" beforeDir="false" afterPath="$PROJECT_DIR$/dependencies.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependency-info.html" beforeDir="false" afterPath="$PROJECT_DIR$/dependency-info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/distribution-management.html" beforeDir="false" afterPath="$PROJECT_DIR$/distribution-management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/examples/basic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/find-and-replace-mojo.html" beforeDir="false" afterPath="$PROJECT_DIR$/find-and-replace-mojo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/issue-management.html" beforeDir="false" afterPath="$PROJECT_DIR$/issue-management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/apache-maven-fluido-1.7.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/apache-maven-fluido-1.7.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/licenses.html" beforeDir="false" afterPath="$PROJECT_DIR$/licenses.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugin-info.html" beforeDir="false" afterPath="$PROJECT_DIR$/plugin-info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugin-management.html" beforeDir="false" afterPath="$PROJECT_DIR$/plugin-management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins.html" beforeDir="false" afterPath="$PROJECT_DIR$/plugins.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-info.html" beforeDir="false" afterPath="$PROJECT_DIR$/project-info.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-reports.html" beforeDir="false" afterPath="$PROJECT_DIR$/project-reports.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scm.html" beforeDir="false" afterPath="$PROJECT_DIR$/scm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/io.github.floverfelt/find-and-replace-maven-plugin/plugin-help.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/plugin.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/floverfelt/find/and/replace/maven/plugin/FindAndReplaceMojo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/io/github/floverfelt/find/and/replace/maven/plugin/tasks/ProcessFilesTask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-site/xdoc/find-and-replace-mojo.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/team.html" beforeDir="false" afterPath="$PROJECT_DIR$/team.html" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,110 +41,6 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/floverfelt/find/and/replace/maven/plugin/FindAndReplaceMojo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="31" column="72" selection-start-line="31" selection-start-column="72" selection-end-line="31" selection-end-column="72" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/project-info.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-340">
-              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/team.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-316">
-              <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="131">
-                <caret line="15" column="34" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/floverfelt/find/and/replace/maven/plugin/tasks/ProcessFilesTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/io/github/floverfelt/find/and/replace/maven/plugin/FindAndReplaceMojoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="33" column="75" selection-start-line="33" selection-start-column="75" selection-end-line="33" selection-end-column="75" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#setUpAll#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testDirectoryNames#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testDirectoryNamesRecursive#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testDirectoryNamesRecursiveExclusions#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFilenames#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFilenamesRecursive#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFilenamesRecursiveFileMasks#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFilenamesRecursiveFileMasksWithExclusions#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContents#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContentsRecursive#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContentsRecursive#1;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContentsRecursive#1;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContentsRecursiveFileMasks#1;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#testFileContentsRecursiveFileMasksExclusions#1;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#recursiveDelete#0;class#FindAndReplaceMojoTest#0" />
-                <element signature="method#fileContains#0;class#FindAndReplaceMojoTest#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -166,14 +89,6 @@
       <expand />
       <select />
     </treeState>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-        <option name="lookForNested" value="true" />
-      </MavenImportingSettings>
-    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="23" />
@@ -226,25 +141,14 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\overfelt.jacob\Documents\find-and-replace-maven-plugin" />
+      <recent name="$PROJECT_DIR$/src/test/resources/integration/directory-names" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/test/resources/integration/directory-names" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="JUnit.FindAndReplaceMojoTest">
     <configuration name="FindAndReplaceMojoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -429,6 +333,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/test/resources/integration/directory-names/.gitkeep" />
