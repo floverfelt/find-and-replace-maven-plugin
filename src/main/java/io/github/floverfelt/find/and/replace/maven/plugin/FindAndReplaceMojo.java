@@ -1,12 +1,15 @@
 package io.github.floverfelt.find.and.replace.maven.plugin;
 
 import io.github.floverfelt.find.and.replace.maven.plugin.tasks.ProcessFilesTask;
+
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -19,7 +22,6 @@ import org.apache.maven.project.MavenProject;
 /**
  * The find and replace maven plugin will find a regex string in filenames, file contents, and directory names
  * and replace it with a given value.
- *
  */
 @Mojo(name = "find-and-replace", defaultPhase = LifecyclePhase.NONE, threadSafe = true)
 public class FindAndReplaceMojo extends AbstractMojo {
@@ -32,7 +34,6 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * This is relative to the location of the pom.
    *
    * @parameter baseDir
-   *
    */
   @Parameter(property = "baseDir", defaultValue = "${basedir}")
   private String baseDir;
@@ -41,23 +42,21 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * Whether the find and replace is recursive from the baseDir.
    *
    * @parameter recursive
-   *
    */
   @Parameter(property = "recursive", defaultValue = "false")
   private boolean recursive;
 
   /**
    * A CSV of what type of replacement(s) being done. Valid values are: file-contents filenames directory-names
-   *
-   *  file-contents will replace the find regex within a file.
-   *  filenames will replace the find regex within a file's name.
-   *  directory-names will replace the find regex within a directory's name
-   *
+   * <p>
+   * file-contents will replace the find regex within a file.
+   * filenames will replace the find regex within a file's name.
+   * directory-names will replace the find regex within a directory's name
+   * <p>
    * To run the find and replace for multiple types, pass them as a CSV:
-   *    file-contents,filenames,directory-names
+   * file-contents,filenames,directory-names
    *
    * @parameter replacementType
-   *
    */
   @Parameter(property = "replacementType", required = true)
   private String replacementType;
@@ -66,7 +65,6 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * The regex string to find.
    *
    * @parameter findRegex
-   *
    */
   @Parameter(property = "findRegex", required = true)
   private String findRegex;
@@ -75,23 +73,21 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * The value to replace the matching findRegex with.
    *
    * @parameter replaceValue
-   *
    */
-  @Parameter(property = "replaceValue", required = true)
+  @Parameter(property = "replaceValue", required = true, defaultValue = "")
   private String replaceValue;
 
   /**
    * A CSV of the file types to search in.
    * For example for the value: .xml
    * Only files ending with .xml will be renamed.
-   *
+   * <p>
    * For the value: .xml,.properties
    * Only files ending with .xml,.properties will be renamed.
-   *
+   * <p>
    * Ignored for directories.
    *
    * @parameter fileMask
-   *
    */
   @Parameter(property = "fileMask")
   private String fileMask;
@@ -100,7 +96,6 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * Regex filenames/directory-names to exclude.
    *
    * @parameter exclusions
-   *
    */
   @Parameter(property = "exclusions")
   private String exclusions;
@@ -109,10 +104,22 @@ public class FindAndReplaceMojo extends AbstractMojo {
    * Skip execution of the plugin.
    *
    * @parameter skip
-   *
    */
   @Parameter(property = "skip", defaultValue = "false")
   private boolean skip;
+
+  /**
+   * Specify file encoding during file-contents replacement
+   * <p>
+   *     Default set to Charset.defaultCharset();
+   * </p>
+   *
+   * @parameter encoding
+   */
+  @Parameter(property = "encoding")
+  private String encoding;
+
+  private Charset charset = Charset.defaultCharset();
 
   private static final String FILE_CONTENTS = "file-contents";
   private static final String FILENAMES = "filenames";
@@ -141,7 +148,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
     try {
       ProcessFilesTask.process(getLog(), baseDirPath, recursive, Pattern.compile(findRegex), replaceValue, fileMaskList,
-          exclusionsList, processFileContents, processFilenames, processDirectoryNames);
+          exclusionsList, processFileContents, processFilenames, processDirectoryNames, charset);
     } catch (Exception e) {
       throw new MojoFailureException("Unable to process files.", e);
     }
@@ -157,6 +164,8 @@ public class FindAndReplaceMojo extends AbstractMojo {
     setupExclusions();
 
     setupBaseDir();
+
+    setupEncoding();
 
   }
 
@@ -196,6 +205,20 @@ public class FindAndReplaceMojo extends AbstractMojo {
     if (StringUtils.isNotEmpty(fileMask)) {
       fileMaskList = Arrays.asList(StringUtils.split(fileMask, ","));
       getLog().info("fileMasks set to: " + fileMaskList);
+    }
+
+  }
+
+
+  private void setupEncoding() {
+
+    if (StringUtils.isNotEmpty(encoding)) {
+      try {
+        charset = Charset.forName(encoding);
+        getLog().info("encoding set to: " + charset);
+      } catch (Exception e) {
+        getLog().warn("Invalid encoding value " + encoding + ". Using default charset.");
+      }
     }
 
   }
@@ -240,6 +263,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
     sb.append(", processDirectoryNames=").append(processDirectoryNames);
     sb.append(", fileMaskList=").append(fileMaskList);
     sb.append(", exclusionsList=").append(exclusionsList);
+    sb.append(", encoding=").append(encoding);
     sb.append('}');
     return sb.toString();
   }

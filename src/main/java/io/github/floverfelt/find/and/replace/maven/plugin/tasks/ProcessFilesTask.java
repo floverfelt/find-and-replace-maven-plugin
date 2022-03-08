@@ -1,10 +1,14 @@
 package io.github.floverfelt.find.and.replace.maven.plugin.tasks;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,29 +20,33 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
 import org.apache.maven.plugin.logging.Log;
 
 public class ProcessFilesTask {
 
-  private ProcessFilesTask() {}
+  private ProcessFilesTask() {
+    // do not instantiate
+  }
 
   /**
    * Stupid simple implementation of file walking, renaming, etc.
    *
-   * @param log the maven-plugin log
-   * @param baseDir the directory to start in
-   * @param isRecursive whether to recurse further
-   * @param findRegex the regex to find
-   * @param replaceValue the value to replace the found regex
-   * @param fileMasks the file masks to use
-   * @param exclusions the filename regex to exclude
-   * @param processFileContents whether to process file contents
-   * @param processFilenames whether to process file names
+   * @param log                   the maven-plugin log
+   * @param baseDir               the directory to start in
+   * @param isRecursive           whether to recurse further
+   * @param findRegex             the regex to find
+   * @param replaceValue          the value to replace the found regex
+   * @param fileMasks             the file masks to use
+   * @param exclusions            the filename regex to exclude
+   * @param processFileContents   whether to process file contents
+   * @param processFilenames      whether to process file names
    * @param processDirectoryNames whether to process directory names
+   * @param charset               encoding to be used when reading files
    */
   public static void process(Log log, Path baseDir, boolean isRecursive, Pattern findRegex, String replaceValue,
                              List<String> fileMasks, List<Pattern> exclusions, boolean processFileContents,
-                             boolean processFilenames, boolean processDirectoryNames) throws IOException {
+                             boolean processFilenames, boolean processDirectoryNames, Charset charset) throws IOException {
 
     // Load in the files in the base dir
     List<File> filesToProcess = new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(baseDir.toUri()).listFiles())));
@@ -58,7 +66,7 @@ public class ProcessFilesTask {
       }
 
       if (file.isFile()) {
-        processFile(log, exclusions, file, fileMasks, processFileContents, findRegex, replaceValue, processFilenames);
+        processFile(log, exclusions, file, fileMasks, processFileContents, findRegex, replaceValue, processFilenames, charset);
       }
 
     }
@@ -66,14 +74,13 @@ public class ProcessFilesTask {
   }
 
 
-
   private static ListIterator<File> processDirectory(ListIterator<File> iterator, boolean isRecursive, File file,
-                                           boolean processDirectoryNames, List<Pattern> exclusions, Pattern findRegex,
-                                           String replaceValue, Log log) throws IOException {
+                                                     boolean processDirectoryNames, List<Pattern> exclusions, Pattern findRegex,
+                                                     String replaceValue, Log log) throws IOException {
 
     // Rename the directory
     if (processDirectoryNames && !shouldExcludeFile(exclusions, file)) {
-        file = renameFile(log, file, findRegex, replaceValue);
+      file = renameFile(log, file, findRegex, replaceValue);
     }
 
     // If recursive, add child files to iterator
@@ -124,8 +131,8 @@ public class ProcessFilesTask {
     Path filePath = file.toPath();
     Path parentDir = filePath.getParent();
     String oldName = file.getName();
-    Matcher m = findRegex.matcher(oldName);
-    String newName = m.replaceAll(replaceValue);
+    Matcher matcher = findRegex.matcher(oldName);
+    String newName = matcher.replaceAll(replaceValue);
 
     if (!newName.equals(oldName)) {
       Path targetPath = Paths.get(parentDir.toString(), newName);
@@ -140,18 +147,22 @@ public class ProcessFilesTask {
 
   }
 
-  private static void processFileContents(File file, Pattern findRegex, String replaceValue) throws IOException {
+  private static void processFileContents(File file, Pattern findRegex, String replaceValue, Charset charset) throws IOException {
 
-    File tempFile = File.createTempFile("tmp","tmp", file.getParentFile());
+    File tempFile = File.createTempFile("tmp", "tmp", file.getParentFile());
 
-    try (BufferedReader fileReader = new BufferedReader(new FileReader(file))) {
-      try (FileWriter fileWriter = new FileWriter(tempFile)) {
+    try (FileInputStream fis = new FileInputStream(file);
+         InputStreamReader isr = new InputStreamReader(fis, charset);
+         BufferedReader fileReader = new BufferedReader(isr)) {
+      try (FileOutputStream fos = new FileOutputStream(tempFile);
+           OutputStreamWriter osr = new OutputStreamWriter(fos, charset);
+           BufferedWriter fileWriter = new BufferedWriter(osr)) {
 
         Stream<String> lines = fileReader.lines();
 
         lines.forEach(line -> {
-          Matcher m = findRegex.matcher(line);
-          line = m.replaceAll(replaceValue);
+          Matcher matcher = findRegex.matcher(line);
+          line = matcher.replaceAll(replaceValue);
           try {
             fileWriter.write(line + "\n");
           } catch (IOException e) {
@@ -173,14 +184,14 @@ public class ProcessFilesTask {
 
   private static void processFile(Log log, List<Pattern> exclusions, File file, List<String> fileMasks,
                                   boolean processFileContents, Pattern findRegex, String replaceValue,
-                                  boolean processFilenames) throws IOException {
+                                  boolean processFilenames, Charset charset) throws IOException {
 
     if (shouldExcludeFile(exclusions, file) || !shouldProcessFile(fileMasks, file)) {
       return;
     }
 
     if (processFileContents) {
-      processFileContents(file, findRegex, replaceValue);
+      processFileContents(file, findRegex, replaceValue, charset);
     }
 
     if (processFilenames) {
