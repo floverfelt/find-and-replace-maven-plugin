@@ -46,7 +46,7 @@ public class ProcessFilesTask {
    */
   public static void process(Log log, Path baseDir, boolean isRecursive, Pattern findRegex, String replaceValue,
                              List<String> fileMasks, List<Pattern> exclusions, boolean processFileContents,
-                             boolean processFilenames, boolean processDirectoryNames, Charset charset) throws IOException {
+                             boolean processFilenames, boolean processDirectoryNames, boolean replaceAll, Charset charset) throws IOException {
 
     // Load in the files in the base dir
     List<File> filesToProcess = new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(baseDir.toUri()).listFiles())));
@@ -62,11 +62,11 @@ public class ProcessFilesTask {
 
       // Perform dir checks
       if (file.isDirectory()) {
-        iterator = processDirectory(iterator, isRecursive, file, processDirectoryNames, exclusions, findRegex, replaceValue, log);
+        iterator = processDirectory(iterator, isRecursive, file, processDirectoryNames, exclusions, findRegex, replaceValue, replaceAll, log);
       }
 
       if (file.isFile()) {
-        processFile(log, exclusions, file, fileMasks, processFileContents, findRegex, replaceValue, processFilenames, charset);
+        processFile(log, exclusions, file, fileMasks, processFileContents, findRegex, replaceValue, processFilenames, replaceAll, charset);
       }
 
     }
@@ -76,11 +76,11 @@ public class ProcessFilesTask {
 
   private static ListIterator<File> processDirectory(ListIterator<File> iterator, boolean isRecursive, File file,
                                                      boolean processDirectoryNames, List<Pattern> exclusions, Pattern findRegex,
-                                                     String replaceValue, Log log) throws IOException {
+                                                     String replaceValue, boolean replaceAll, Log log) throws IOException {
 
     // Rename the directory
     if (processDirectoryNames && !shouldExcludeFile(exclusions, file)) {
-      file = renameFile(log, file, findRegex, replaceValue);
+      file = renameFile(log, file, findRegex, replaceValue, replaceAll);
     }
 
     // If recursive, add child files to iterator
@@ -126,13 +126,13 @@ public class ProcessFilesTask {
 
   }
 
-  private static File renameFile(Log log, File file, Pattern findRegex, String replaceValue) throws IOException {
+  private static File renameFile(Log log, File file, Pattern findRegex, String replaceValue, boolean replaceAll) throws IOException {
 
     Path filePath = file.toPath();
     Path parentDir = filePath.getParent();
     String oldName = file.getName();
     Matcher matcher = findRegex.matcher(oldName);
-    String newName = matcher.replaceAll(replaceValue);
+    String newName = replaceAll ? matcher.replaceAll(replaceValue) : matcher.replaceFirst(replaceValue);
 
     if (!newName.equals(oldName)) {
       Path targetPath = Paths.get(parentDir.toString(), newName);
@@ -147,7 +147,7 @@ public class ProcessFilesTask {
 
   }
 
-  private static void processFileContents(File file, Pattern findRegex, String replaceValue, Charset charset) throws IOException {
+  private static void processFileContents(File file, Pattern findRegex, String replaceValue, boolean replaceAll, Charset charset) throws IOException {
 
     File tempFile = File.createTempFile("tmp", "tmp", file.getParentFile());
 
@@ -158,17 +158,26 @@ public class ProcessFilesTask {
            OutputStreamWriter osr = new OutputStreamWriter(fos, charset);
            BufferedWriter fileWriter = new BufferedWriter(osr)) {
 
-        Stream<String> lines = fileReader.lines();
+        boolean alreadyReplaced = false;
 
-        lines.forEach(line -> {
+        for (String line = fileReader.readLine(); line != null; line = fileReader.readLine()) {
           Matcher matcher = findRegex.matcher(line);
-          line = matcher.replaceAll(replaceValue);
+          if(matcher.find()) {
+            if (replaceAll)
+              line = matcher.replaceAll(replaceValue);
+            else {
+              if (!alreadyReplaced) {
+                line = matcher.replaceFirst(replaceValue);
+                alreadyReplaced = true;
+              }
+            }
+          }
           try {
-            fileWriter.write(line + "\n");
+             fileWriter.write(line + "\n");
           } catch (IOException e) {
             throw new RuntimeException(e);
           }
-        });
+        }
       }
     }
 
@@ -184,18 +193,18 @@ public class ProcessFilesTask {
 
   private static void processFile(Log log, List<Pattern> exclusions, File file, List<String> fileMasks,
                                   boolean processFileContents, Pattern findRegex, String replaceValue,
-                                  boolean processFilenames, Charset charset) throws IOException {
+                                  boolean processFilenames, boolean replaceAll, Charset charset) throws IOException {
 
     if (shouldExcludeFile(exclusions, file) || !shouldProcessFile(fileMasks, file)) {
       return;
     }
 
     if (processFileContents) {
-      processFileContents(file, findRegex, replaceValue, charset);
+      processFileContents(file, findRegex, replaceValue, replaceAll, charset);
     }
 
     if (processFilenames) {
-      renameFile(log, file, findRegex, replaceValue);
+      renameFile(log, file, findRegex, replaceValue, replaceAll);
     }
 
   }
