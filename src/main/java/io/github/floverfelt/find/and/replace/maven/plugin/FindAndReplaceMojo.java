@@ -119,6 +119,14 @@ public class FindAndReplaceMojo extends AbstractMojo {
   @Parameter(property = "encoding")
   private String encoding;
 
+  /**
+   * Whether the find and replace replaces all matches.
+   *
+   * @parameter replaceAll
+   */
+  @Parameter(property = "replaceAll", defaultValue = "true")
+  private boolean replaceAll;
+
   private Charset charset = Charset.defaultCharset();
 
   private static final String FILE_CONTENTS = "file-contents";
@@ -148,7 +156,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
     try {
       ProcessFilesTask.process(getLog(), baseDirPath, recursive, Pattern.compile(findRegex), replaceValue, fileMaskList,
-          exclusionsList, processFileContents, processFilenames, processDirectoryNames, charset);
+          exclusionsList, processFileContents, processFilenames, processDirectoryNames, replaceAll, charset);
     } catch (Exception e) {
       throw new MojoFailureException("Unable to process files.", e);
     }
@@ -264,6 +272,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
     sb.append(", fileMaskList=").append(fileMaskList);
     sb.append(", exclusionsList=").append(exclusionsList);
     sb.append(", encoding=").append(encoding);
+    sb.append(", replaceAll=").append(replaceAll);
     sb.append('}');
     return sb.toString();
   }
