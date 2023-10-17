@@ -3,3 +3,4 @@ some:
     in:
       yml: -test-
     other: asdf
+    prop: asdf

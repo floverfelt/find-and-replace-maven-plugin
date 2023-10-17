@@ -162,14 +162,13 @@ public class ProcessFilesTask {
 
         for (String line = fileReader.readLine(); line != null; line = fileReader.readLine()) {
           Matcher matcher = findRegex.matcher(line);
-          if(matcher.find()) {
-            if (replaceAll)
+          if (matcher.find()) {
+            if (replaceAll) {
               line = matcher.replaceAll(replaceValue);
-            else {
-              if (!alreadyReplaced) {
+            }
+            else if (!alreadyReplaced) {
                 line = matcher.replaceFirst(replaceValue);
                 alreadyReplaced = true;
-              }
             }
           }
           try {

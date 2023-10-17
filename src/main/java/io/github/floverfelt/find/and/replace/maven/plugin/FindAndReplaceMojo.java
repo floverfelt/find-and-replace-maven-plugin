@@ -120,7 +120,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
   private String encoding;
 
   /**
-   * Whether the find and replace replaces all matches.
+   * Whether the find and replace maven plugin replaces all matches or just the first match.
    *
    * @parameter replaceAll
    */
