@@ -1,5 +1,7 @@
 package io.github.floverfelt.find.and.replace.maven.plugin.tasks;
 
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -19,9 +21,6 @@ import java.util.ListIterator;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import org.apache.maven.plugin.logging.Log;
 
 public class ProcessFilesTask {
 
