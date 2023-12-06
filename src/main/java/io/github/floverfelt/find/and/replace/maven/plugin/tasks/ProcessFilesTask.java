@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +47,11 @@ public class ProcessFilesTask {
                              boolean processFilenames, boolean processDirectoryNames, boolean replaceAll, Charset charset) throws IOException {
 
     // Load in the files in the base dir
-    List<File> filesToProcess = new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(baseDir.toUri()).listFiles())));
+    File[] baseDirFiles = new File(baseDir.toUri()).listFiles();
+    if (baseDirFiles == null) {
+      throw new IOException(String.format("Unable to list file(s) in baseDir='%s'", baseDir));
+    }
+    List<File> filesToProcess = new ArrayList<>(Arrays.asList(baseDirFiles));
 
     ListIterator<File> iterator = filesToProcess.listIterator();
 
