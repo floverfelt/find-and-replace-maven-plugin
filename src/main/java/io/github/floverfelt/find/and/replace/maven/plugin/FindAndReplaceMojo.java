@@ -1,6 +1,13 @@
 package io.github.floverfelt.find.and.replace.maven.plugin;
 
 import io.github.floverfelt.find.and.replace.maven.plugin.tasks.ProcessFilesTask;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 
 import java.nio.charset.Charset;
 import java.nio.file.Path;
@@ -9,15 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.LifecyclePhase;
-import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 
 /**
  * The find and replace maven plugin will find a regex string in filenames, file contents, and directory names
@@ -179,7 +177,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
   private void setupReplacementTypes() throws MojoExecutionException {
 
-    String[] replacementTypeList = StringUtils.split(replacementType, ",");
+    String[] replacementTypeList = replacementType.split(",");
 
     String logMessage = "Mode set to ";
 
@@ -209,9 +207,8 @@ public class FindAndReplaceMojo extends AbstractMojo {
   }
 
   private void setupFileMasks() {
-
-    if (StringUtils.isNotEmpty(fileMask)) {
-      fileMaskList = Arrays.asList(StringUtils.split(fileMask, ","));
+    if (fileMask != null && !"".equals(fileMask)) {
+      fileMaskList = Arrays.asList(fileMask.split(","));
       getLog().info("fileMasks set to: " + fileMaskList);
     }
 
@@ -220,7 +217,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
   private void setupEncoding() {
 
-    if (StringUtils.isNotEmpty(encoding)) {
+    if (encoding != null && !"".equals(encoding)) {
       try {
         charset = Charset.forName(encoding);
         getLog().info("encoding set to: " + charset);
@@ -233,7 +230,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
   private void setupExclusions() {
 
-    if (StringUtils.isNotEmpty(exclusions)) {
+    if (exclusions != null && !"".equals(exclusions)) {
       getLog().info("Compiling regex for exclusions: " + exclusions);
       exclusionsList.add(Pattern.compile(exclusions));
     }
