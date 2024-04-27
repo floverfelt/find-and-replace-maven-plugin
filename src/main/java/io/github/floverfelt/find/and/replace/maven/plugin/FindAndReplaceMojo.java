@@ -74,7 +74,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
    *
    * @parameter replaceValue
    */
-  @Parameter(property = "replaceValue", required = true, defaultValue = "")
+  @Parameter(property = "replaceValue", defaultValue = "")
   private String replaceValue;
 
   /**
