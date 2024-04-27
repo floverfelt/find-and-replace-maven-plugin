@@ -1,12 +1,9 @@
 package io.github.floverfelt.find.and.replace.maven.plugin.tasks;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -19,7 +16,6 @@ import java.util.ListIterator;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.apache.maven.plugin.logging.Log;
 
@@ -151,32 +147,21 @@ public class ProcessFilesTask {
 
     File tempFile = File.createTempFile("tmp", "tmp", file.getParentFile());
 
-    try (FileInputStream fis = new FileInputStream(file);
-         InputStreamReader isr = new InputStreamReader(fis, charset);
-         BufferedReader fileReader = new BufferedReader(isr)) {
-      try (FileOutputStream fos = new FileOutputStream(tempFile);
-           OutputStreamWriter osr = new OutputStreamWriter(fos, charset);
-           BufferedWriter fileWriter = new BufferedWriter(osr)) {
+    try (FileOutputStream fos = new FileOutputStream(tempFile);
+     OutputStreamWriter osr = new OutputStreamWriter(fos, charset);
+     BufferedWriter fileWriter = new BufferedWriter(osr)) {
 
-        boolean alreadyReplaced = false;
+      String fileContent = new String(Files.readAllBytes(file.toPath()), charset);
+      Matcher matcher = findRegex.matcher(fileContent);
+      if (matcher.find()) {
+        if(null == replaceValue) replaceValue = "";
+        fileContent = replaceAll ? matcher.replaceAll(replaceValue) : matcher.replaceFirst(replaceValue);
+      }
 
-        for (String line = fileReader.readLine(); line != null; line = fileReader.readLine()) {
-          Matcher matcher = findRegex.matcher(line);
-          if (matcher.find()) {
-            if (replaceAll) {
-              line = matcher.replaceAll(replaceValue);
-            }
-            else if (!alreadyReplaced) {
-                line = matcher.replaceFirst(replaceValue);
-                alreadyReplaced = true;
-            }
-          }
-          try {
-             fileWriter.write(line + "\n");
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
-        }
+      try {
+        fileWriter.write(fileContent);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
       }
     }
 

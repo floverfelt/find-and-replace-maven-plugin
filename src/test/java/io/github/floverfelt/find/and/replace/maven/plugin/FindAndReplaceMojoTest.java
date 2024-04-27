@@ -4,9 +4,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.MethodSorters;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,6 +36,7 @@ import static junit.framework.TestCase.assertTrue;
  * They dynamically generate the folders/files, and then check that the plugin is working as expected.
  */
 @RunWith(BlockJUnit4ClassRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FindAndReplaceMojoTest {
 
   private final FindAndReplaceMojo findAndReplaceMojo = new FindAndReplaceMojo();
@@ -234,7 +237,7 @@ public class FindAndReplaceMojoTest {
           MojoExecutionException, MojoFailureException {
 
     Path firstDir = Files.createDirectory(Paths.get(runningTestsPath.toString(), "test-directory"));
-    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name")).toUri();
+    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name"));
     Path nonRecurseFile = Files.createFile(Paths.get(firstDir.toString(), "some_file_name"));
 
     setFieldValue(findAndReplaceMojo, "findRegex", "_");
@@ -255,7 +258,7 @@ public class FindAndReplaceMojoTest {
           MojoExecutionException, MojoFailureException {
 
     Path firstDir = Files.createDirectory(Paths.get(runningTestsPath.toString(), "test-directory"));
-    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name")).toUri();
+    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name"));
     Path nonRecurseFile = Files.createFile(Paths.get(firstDir.toString(), "some_file_name"));
 
     setFieldValue(findAndReplaceMojo, "findRegex", "_");
@@ -276,7 +279,7 @@ public class FindAndReplaceMojoTest {
           MojoExecutionException, MojoFailureException {
 
     Path firstDir = Files.createDirectory(Paths.get(runningTestsPath.toString(), "test-directory"));
-    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name")).toUri();
+    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name"));
     Files.createFile(Paths.get(firstDir.toString(), "some_file_name"));
 
     setFieldValue(findAndReplaceMojo, "findRegex", "_");
@@ -298,7 +301,7 @@ public class FindAndReplaceMojoTest {
           MojoExecutionException, MojoFailureException {
 
     Path firstDir = Files.createDirectory(Paths.get(runningTestsPath.toString(), "test-directory"));
-    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name")).toUri();
+    Files.createFile(Paths.get(runningTestsPath.toString(), "some_file_name"));
     Files.createFile(Paths.get(firstDir.toString(), "some_file_name"));
 
     setFieldValue(findAndReplaceMojo, "findRegex", "_");
@@ -469,6 +472,52 @@ public class FindAndReplaceMojoTest {
     assertFalse(fileContains(textTestFile.toFile(), "asdf"));
     assertFalse(fileContains(xmlTestFile.toFile(), "asdf"));
     assertFalse(fileContains(ymlTestFile.toFile(), "asdf"));
+
+  }
+
+  @Test
+  public void testFileContentsMultiLineRegex() throws IOException, NoSuchFieldException, IllegalAccessException,
+          MojoExecutionException, MojoFailureException {
+
+    setFieldValue(findAndReplaceMojo, "findRegex", "asdf\r\n\r\n-test-");
+    String replaceValue = "value successfully replaced";
+    setFieldValue(findAndReplaceMojo, "replaceValue", replaceValue);
+    setFieldValue(findAndReplaceMojo, "processFileContents", true);
+    setFieldValue(findAndReplaceMojo, "replacementType", "file-contents");
+    setFieldValue(findAndReplaceMojo, "replaceAll", true);
+
+    findAndReplaceMojo.execute();
+
+    assertTrue(fileContains(textTestFile.toFile(), replaceValue));
+    assertFalse(fileContains(xmlTestFile.toFile(), replaceValue));
+    assertFalse(fileContains(ymlTestFile.toFile(), replaceValue));
+
+    assertTrue(fileContains(textTestFile.toFile(), "asdf"));
+    assertTrue(fileContains(xmlTestFile.toFile(), "asdf"));
+    assertTrue(fileContains(ymlTestFile.toFile(), "asdf"));
+
+  }
+  @Test
+  public void testFileContentsMultiLineRegex2() throws IOException, NoSuchFieldException, IllegalAccessException,
+          MojoExecutionException, MojoFailureException {
+
+    setFieldValue(findAndReplaceMojo, "findRegex", "asdf[\\w\\W]{4,37}-test-");
+    String replaceValue = "value successfully replaced";
+    setFieldValue(findAndReplaceMojo, "replaceValue", replaceValue);
+    setFieldValue(findAndReplaceMojo, "processFileContents", true);
+    setFieldValue(findAndReplaceMojo, "replacementType", "file-contents");
+    setFieldValue(findAndReplaceMojo, "replaceAll", true);
+
+    findAndReplaceMojo.execute();
+
+    assertTrue(fileContains(textTestFile.toFile(), replaceValue));
+    assertTrue(fileContains(xmlTestFile.toFile(), replaceValue));
+    assertFalse(fileContains(ymlTestFile.toFile(), replaceValue));
+
+    assertTrue(fileContains(textTestFile.toFile(), "asdf"));
+    assertTrue(fileContains(xmlTestFile.toFile(), "asdf"));
+    assertTrue(fileContains(xmlTestFile.toFile(), "-test-"));
+    assertTrue(fileContains(ymlTestFile.toFile(), "asdf"));
 
   }
 
