@@ -176,6 +176,9 @@ public class FindAndReplaceMojo extends AbstractMojo {
   }
 
   private void setupReplacementTypes() throws MojoExecutionException {
+    if (replacementType == null || replacementType.isEmpty()) {
+      throw new MojoExecutionException("replacementType cannot be null or empty.");
+    }
 
     String[] replacementTypeList = replacementType.split(",");
 
@@ -207,7 +210,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
   }
 
   private void setupFileMasks() {
-    if (fileMask != null && !"".equals(fileMask)) {
+    if (fileMask != null && !fileMask.isEmpty()) {
       fileMaskList = Arrays.asList(fileMask.split(","));
       getLog().info("fileMasks set to: " + fileMaskList);
     }
@@ -216,8 +219,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
 
 
   private void setupEncoding() {
-
-    if (encoding != null && !"".equals(encoding)) {
+    if (encoding != null && !encoding.isEmpty()) {
       try {
         charset = Charset.forName(encoding);
         getLog().info("encoding set to: " + charset);
@@ -229,8 +231,7 @@ public class FindAndReplaceMojo extends AbstractMojo {
   }
 
   private void setupExclusions() {
-
-    if (exclusions != null && !"".equals(exclusions)) {
+    if (exclusions != null && !exclusions.isEmpty()) {
       getLog().info("Compiling regex for exclusions: " + exclusions);
       exclusionsList.add(Pattern.compile(exclusions));
     }
