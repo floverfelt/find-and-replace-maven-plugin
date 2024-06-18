@@ -1,5 +1,7 @@
 package io.github.floverfelt.find.and.replace.maven.plugin.tasks;
 
+import org.apache.maven.plugin.logging.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,12 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import org.apache.maven.plugin.logging.Log;
 
 public class ProcessFilesTask {
 
@@ -49,7 +47,11 @@ public class ProcessFilesTask {
                              boolean processFilenames, boolean processDirectoryNames, boolean replaceAll, Charset charset) throws IOException {
 
     // Load in the files in the base dir
-    List<File> filesToProcess = new ArrayList<>(Arrays.asList(Objects.requireNonNull(new File(baseDir.toUri()).listFiles())));
+    File[] baseDirFiles = new File(baseDir.toUri()).listFiles();
+    if (baseDirFiles == null) {
+      throw new IOException(String.format("Unable to list file(s) in baseDir='%s'", baseDir));
+    }
+    List<File> filesToProcess = new ArrayList<>(Arrays.asList(baseDirFiles));
 
     ListIterator<File> iterator = filesToProcess.listIterator();
 
